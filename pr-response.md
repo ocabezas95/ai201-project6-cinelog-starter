@@ -40,9 +40,11 @@
 
 ## Comment 6 — Rebase
 
-**What conflicted:**
-**How I resolved it:**
-**How I verified no conflict remains:**
+**What conflicted:** The `.gitignore` file had an `add/add` merge conflict because both the main branch and the feature branch created it simultaneously.
+
+**How I resolved it:** I opened the file, manually deleted the Git conflict markers (<<<<<<< HEAD, =======, etc.), and preserved all the ignore rules. Then, I staged the file and ran git rebase --continue.
+
+**How I verified no conflict remains:** The rebase completed successfully, and I ran pytest to ensure the codebase remains fully functional after integrating the upstream changes.
 
 ## PR Description
 
