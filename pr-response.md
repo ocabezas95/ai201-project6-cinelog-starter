@@ -2,6 +2,8 @@
 
 ## AI Usage
 
+I used Claude initially to help debug my pytest setup and understand why my tests were failing at the beginning of the project. Afterwards, I used Gemini as an interactive copilot to safely navigate complex Git operations—specifically resolving an add/add merge conflict in the .gitignore file and successfully executing an interactive rebase using Vim.
+
 <!-- Fill in at the end — how you used AI tools during this project -->
 
 ## Comment 1 — Rename
@@ -47,5 +49,26 @@
 **How I verified no conflict remains:** The rebase completed successfully, and I ran pytest to ensure the codebase remains fully functional after integrating the upstream changes.
 
 ## PR Description
+
+Feature Overview:
+This PR implements and refines the core Watchlist functionality for CineLog. I updated the endpoint naming convention to add_to_watchlist for consistency, implemented deduplication logic (raising an AlreadyInWatchlistError) to prevent users from adding the same film twice, and wrote unit tests for nonexistent films. I also successfully rebased this branch onto main, updating the integer IDs to UUIDs to align with the recent codebase refactor.
+
+Design Decisions:
+
+- Visibility Default: I decided to keep the default visibility as public=True. Since CineLog is a social platform, frictionless sharing drives engagement. Users can still manually toggle their lists to private if they prefer.
+
+- Sort Order: I proposed a hybrid UI toggle. While the reviewer is correct that users frequently want to see recent additions (Date-Added), completely removing Alphabetical sorting makes navigating large watchlists extremely frustrating. A toggle provides the best of both worlds.
+
+Manual Testing Instructions:
+
+1. Start the application by running python app.py in your terminal.
+
+2. Open a new terminal window and use curl (or Postman) to send a POST request to the /watchlist/<user_id>/add endpoint with a valid film_id payload.
+
+3. Verify that the server returns a success response.
+
+4. Send the exact same POST request a second time to verify that the deduplication logic catches it and returns an error message.
+
+5. Finally, run pytest tests/ -v to confirm all unit tests pass successfully.
 
 <!-- Written at the end — feature overview, design decisions, manual testing steps -->
